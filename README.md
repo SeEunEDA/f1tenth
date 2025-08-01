@@ -1,7 +1,6 @@
-# f1tenth
 
 ## F1TENTH ROS2 Foxy Docker + noVNC
-## Ubuntu 20.04 + ROS2 Foxy 환경에서 NVIDIA GPU 없이 Docker + noVNC로 실행하는 F1TENTH 시뮬레이터입니다.
+Ubuntu 20.04 + ROS2 Foxy 환경에서 NVIDIA GPU 없이 Docker + noVNC로 실행하는 F1TENTH 시뮬레이터입니다.
 
 필수 패키지 설치
 
