@@ -44,7 +44,6 @@ services:
     tty: true
 
 실행
-
 git clone https://github.com/f1tenth/f1tenth_gym_ros.git
 cd f1tenth_gym_ros
 docker-compose up
@@ -53,68 +52,41 @@ docker-compose up
 
 시뮬레이터 구성 (다중 터미널)
 
-# 터미널 1: 시뮬레이터 실행
+### 터미널 1: 시뮬레이터 실행
 source /opt/ros/foxy/setup.bash
 source ~/f1tenth_ws/install/setup.bash
 ros2 launch f1tenth_gym_ros gym_bridge_launch.py
 
-# 터미널 2: 맵 서버 실행
+### 터미널 2: 맵 서버 실행
 ros2 run nav2_map_server map_server \
   --ros-args -p yaml_filename:=$HOME/f1tenth_ws/src/f1tenth_gym_ros/maps/levine.yaml
 
-# 터미널 3: 맵 활성화
+### 터미널 3: 맵 활성화
 ros2 lifecycle set /map_server configure
 ros2 lifecycle set /map_server activate
 
-# 터미널 4: TF 변환
+### 터미널 4: TF 변환
 ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map ego_racecar/base_link
 
-# 터미널 5: 키보드 조작
+### 터미널 5: 키보드 조작
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
-# 터미널 6: Twist to Ackermann
+### 터미널 6: Twist to Ackermann
 ros2 run cmdvel_to_ackermann cmdvel_to_ackermann
 
-# 터미널 7 (선택): PID 제어
+### 터미널 7: PID 제어
 ros2 run pid_velocity_controller pid_velocity_controller
 
-키보드 조작
+## 키보드 조작
+| 키 | 기능 |
+|----|------|
+| i  | 전진 |
+| ,  | 후진 |
+| k  | 정지 |
+| u/o | 전진+회전 |
+| m/. | 후진+회전 |
+| q/z | 속도 증가/감소 |
 
-키
-
-기능
-
-i
-
-전진
-
-,
-
-후진
-
-k
-
-정지
-
-u/o
-
-전진+회전
-
-m/.
-
-후진+회전
-
-q/z
-
-속도 증가/감소
-
-메시지 흐름
-
-[teleop_twist_keyboard] → /cmd_vel
-       ↓
-[cmdvel_to_ackermann 또는 pid_velocity_controller] → /drive
-       ↓
-[시뮬레이터]
 
 참고 문헌 및 라이선스
 
