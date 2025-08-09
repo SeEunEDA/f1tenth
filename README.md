@@ -112,39 +112,3 @@ ros2 param set /twist_to_ackermann_pid max_steering_deg 28.0
 ```
     Ackermann 관련 핵심 파라미터: wheelbase, max_steering_deg
     max_speed는 PID 출력 상한(간접적으로 조향 계산에도 영향)
-
-9) 빠른 점검 체크리스트
-
- 노드 존재
-ros2 node list | grep twist_to_ackermann_pid
- /drive 연결 상태 (Publisher 1, Subscriber 1)
-ros2 topic info /drive
- 퍼블리시 속도(≈50 Hz 권장)
-ros2 topic hz /drive
- (옵션) RViz: Fixed Frame = map (정적 TF 켠 상태) 또는 odom
-
-10) 트러블슈팅
-    /drive에 메시지 안 나옴
-        퍼블리셔 0 → PID 노드 미실행/크래시 → 노드 재실행, 터미널에 로그 확인
-        텔레옵이 /cmd_vel을 내보내는지 확인: ros2 topic echo /cmd_vel
-
-    ModuleNotFoundError (패키지 못 찾음)
-        __init__.py, resource/… 파일, setup.py의 console_scripts 확인
-        빌드 후 각 터미널마다 source install/setup.bash
-
-    ros2 topic echo /drive | head -n 5 뒤 에러
-        BrokenPipeError는 정상(파이프 닫혀서 발생). 대신 -n 옵션 사용:
-        ros2 topic echo -n 5 /drive
-
-    RViz에서 map 기준으로 보고 싶은데 안 보임
-        정적 TF 실행(위 7절) 또는 Fixed Frame을 odom으로 전환
-        AMCL/SLAM 켰으면 정적 TF는 끄기
-
-11) 참고 토픽
-    명령 속도: /cmd_vel
-    실제 속도(오돔): /ego_racecar/odom
-    구동 명령: /drive
-
-12) 텔레옵 팁
-    k 즉시 정지, i 가속, , 감속, j/l 좌/우
-    위험하면 max_speed를 낮춰서 튜닝한 뒤 점진적으로 올리기
