@@ -117,11 +117,11 @@ ros2 param set /twist_to_ackermann_pid max_steering_deg 28.0
 
  노드 존재
 ros2 node list | grep twist_to_ackermann_pid
-# /drive 연결 상태 (Publisher 1, Subscriber 1)
+ /drive 연결 상태 (Publisher 1, Subscriber 1)
 ros2 topic info /drive
-# 퍼블리시 속도(≈50 Hz 권장)
+ 퍼블리시 속도(≈50 Hz 권장)
 ros2 topic hz /drive
-# (옵션) RViz: Fixed Frame = map (정적 TF 켠 상태) 또는 odom
+ (옵션) RViz: Fixed Frame = map (정적 TF 켠 상태) 또는 odom
 
 10) 트러블슈팅
     /drive에 메시지 안 나옴
